@@ -1,0 +1,12 @@
+History.txt
+Manifest.txt
+README.rdoc
+Rakefile
+lib/adtaily_api.rb
+lib/adtaily_api/response.rb
+script/console
+script/destroy
+script/generate
+test/test_adtaily_api.rb
+test/test_response.rb
+test/test_helper.rb

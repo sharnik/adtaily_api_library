@@ -1,6 +1,4 @@
-require 'test/unit'
-require 'shoulda'
-require 'adtaily_api'
+require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestAdTailyAPI < Test::Unit::TestCase
   

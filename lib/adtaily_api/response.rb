@@ -39,6 +39,10 @@ class AdTailyAPI
     def get_widget
       @data['widget'] if self.success?
     end
+
+    def get_campaign
+      @data['campaign'] if self.success?
+    end
   end
 
 end

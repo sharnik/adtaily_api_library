@@ -6,8 +6,8 @@ require 'net/http'
 
 class AdtailyAPI
   VERSION = '0.0.1'
-  ADTAILY_API_URL = 'http://dev.adkubo.com/xapi/'
-  ADTAILY_API_TOKEN = '123'
+  ADTAILY_API_URL = 'http://testing.adkubo.com/xapi/'
+  ADTAILY_API_TOKEN = 'bazinga'
   
   def self.get_websites
     res = make_api_authorized_request(ADTAILY_API_URL + "widgets")
@@ -27,6 +27,16 @@ class AdtailyAPI
     else
       nil
     end
+  end
+  
+  def self.get_campaign(key)
+    res = make_api_authorized_request(ADTAILY_API_URL + "campaigns/#{key}")
+    response = AdTailyAPI::Response.new(res.body)
+    if response.success?
+      response.get_campaign
+    else
+      nil
+    end    
   end
   
   protected

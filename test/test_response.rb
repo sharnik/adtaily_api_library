@@ -7,7 +7,7 @@ class TestAdTailyAPI < Test::Unit::TestCase
       response_str = <<AMEN
         {
           "http_status": {
-            "code": "200",
+            "code": 200,
             "message": "OK"
           },
           "message": "Quick brown fox"
@@ -48,7 +48,7 @@ AMEN
       response_str = <<AMEN
         {
           "http_status": {
-            "code": "200",
+            "code": 200,
             "message": "OK"
           },
           "widgets": [
@@ -88,7 +88,7 @@ AMEN
       response_str = <<AMEN
       {
         "http_status": {
-          "code": "200",
+          "code": 200,
           "message": "OK"
         },
         "widget": {

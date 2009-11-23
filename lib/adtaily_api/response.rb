@@ -1,6 +1,6 @@
 require 'json'
 
-module AdTailyAPI
+class AdTailyAPI
   class Error < StandardError; end
   # Unknown server response
   class AdTailyAPIUnknownResponse < Error; end
@@ -25,7 +25,7 @@ module AdTailyAPI
     end
     
     def success?
-      ['200', '201'].include? http_status and http_message == 'OK'
+      [200, 201].include? http_status and http_message == 'OK'
     end
     
     def failure?

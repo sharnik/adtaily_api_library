@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/test_helper.rb'
 class TestAdtailyApi < Test::Unit::TestCase
 
   context "AdTailyAPI class" do
+    setup do
+      AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga'
+    end
+    
     should "get widget info for existing key" do
       wi = AdtailyAPI.get_website('wu8edcee6h')
       assert wi

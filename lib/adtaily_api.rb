@@ -7,7 +7,6 @@ require 'net/http'
 class AdtailyAPI
   VERSION = '0.0.1'
   ADTAILY_API_URL = 'http://testing.adkubo.com/xapi/'
-  ADTAILY_API_TOKEN = 'bazinga'
   
   def self.get_websites
     res = make_api_authorized_request(ADTAILY_API_URL + "widgets")

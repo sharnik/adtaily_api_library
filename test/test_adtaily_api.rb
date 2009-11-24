@@ -26,6 +26,13 @@ class TestAdtailyApi < Test::Unit::TestCase
       assert_equal '7xwOqvhz36QMxt1', c['key']
       assert c['ads'].size > 0
     end
+
+    should 'return nil for unauthorised request' do
+      AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga-sringa'
+      c = AdtailyAPI.get_campaign('7xwOqvhz36QMxt1')
+      assert_nil c
+    end    
+
   end
 
 end

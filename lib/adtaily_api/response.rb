@@ -9,23 +9,17 @@ class AdTailyAPI
 
 
   class Response
-    attr_accessor :data
+    attr_accessor :data, :http_status, :http_message
     
-    def initialize(response_str)
+    def initialize(response_str, code, message)
       raise AdTailyAPIUnknownResponse if response_str.nil?
       @data = JSON.parse(response_str)
+      @http_status = code
+      @http_message = message
     end
-    
-    def http_status
-      @data['http_status']['code']
-    end
-    
-    def http_message
-      @data['http_status']['message']
-    end
-    
+        
     def success?
-      [200, 201].include? http_status and http_message == 'OK'
+      ['200', '201'].include? http_status and http_message == 'OK'
     end
     
     def failure?

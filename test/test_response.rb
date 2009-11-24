@@ -6,14 +6,10 @@ class TestAdTailyAPI < Test::Unit::TestCase
     setup do
       response_str = <<AMEN
         {
-          "http_status": {
-            "code": 200,
-            "message": "OK"
-          },
           "message": "Quick brown fox"
         }
 AMEN
-      @response = AdTailyAPI::Response.new(response_str)
+      @response = AdTailyAPI::Response.new(response_str, '200', 'OK')
     end
 
     should "be classified as success" do
@@ -29,13 +25,9 @@ AMEN
     setup do
       response_str = <<AMEN
         {
-          "http_status": {
-            "code": "400",
-            "message": "request invalid"
-          }
         }
 AMEN
-      @response = AdTailyAPI::Response.new(response_str)
+      @response = AdTailyAPI::Response.new(response_str, '400', 'BadRequest')
     end
 
     should "be classified as failure" do
@@ -47,10 +39,6 @@ AMEN
     setup do
       response_str = <<AMEN
         {
-          "http_status": {
-            "code": 200,
-            "message": "OK"
-          },
           "widgets": [
             {
               "key": "j34hkh3k",
@@ -71,7 +59,7 @@ AMEN
           ]
         }
 AMEN
-      @response = AdTailyAPI::Response.new(response_str)
+      @response = AdTailyAPI::Response.new(response_str, '200', 'OK')
     end
     
     should "return a widget list" do
@@ -87,10 +75,6 @@ AMEN
     setup do
       response_str = <<AMEN
       {
-        "http_status": {
-          "code": 200,
-          "message": "OK"
-        },
         "widget": {
           "key": "j34hkh3k",
           "title": "Mój jeż",
@@ -101,7 +85,7 @@ AMEN
         }
       }
 AMEN
-      @response = AdTailyAPI::Response.new(response_str)
+      @response = AdTailyAPI::Response.new(response_str, '200', 'OK')
     end
 
     should "return a single widget" do

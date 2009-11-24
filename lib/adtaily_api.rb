@@ -11,7 +11,7 @@ class AdtailyAPI
   
   def self.get_websites
     res = make_api_authorized_request(ADTAILY_API_URL + "widgets")
-    response = AdTailyAPI::Response.new(res.body)
+    response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_widget_list
     else
@@ -21,7 +21,7 @@ class AdtailyAPI
   
   def self.get_website(key)
     res = make_api_authorized_request(ADTAILY_API_URL + "widgets/#{key}")
-    response = AdTailyAPI::Response.new(res.body)
+    response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_widget
     else
@@ -31,7 +31,7 @@ class AdtailyAPI
   
   def self.get_campaign(key)
     res = make_api_authorized_request(ADTAILY_API_URL + "campaigns/#{key}")
-    response = AdTailyAPI::Response.new(res.body)
+    response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_campaign
     else

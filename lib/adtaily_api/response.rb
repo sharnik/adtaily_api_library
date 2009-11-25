@@ -13,9 +13,9 @@ class AdTailyAPI
     
     def initialize(response_str, code, message)
       raise AdTailyAPIUnknownResponse if response_str.nil?
-      @data = JSON.parse(response_str)
       @http_status = code
       @http_message = message
+      @data = JSON.parse(response_str) if self.success?
     end
         
     def success?
@@ -24,7 +24,7 @@ class AdTailyAPI
     
     def failure?
       !success?
-    end    
+    end
 
     def get_widget_list
       @data['widgets'] if self.success?

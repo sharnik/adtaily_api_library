@@ -6,7 +6,17 @@ class TestAdtailyApi < Test::Unit::TestCase
     setup do
       AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga'
     end
-    
+
+#    should "buy campaign" do
+#      params = {"target_url" => "http://cos.pl","description" => "desc",
+#      "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
+#      "start_date" => Date.today, "stop_date" => 2.days.from_now,
+#      "image" => File.open("/tmp/creation_645.jpg")
+#      }
+#      campaign = AdtailyAPI.buy_campaign(params)
+#      raise campaign
+#    end
+
     should "get widget info for existing key" do
       wi = AdtailyAPI.get_website('wu8edcee6h')
       assert wi

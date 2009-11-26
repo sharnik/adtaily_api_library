@@ -6,7 +6,8 @@ class AdTailyAPI
   class AdTailyAPIUnknownResponse < Error; end
   # Invalid request server response
   class AdTailyAPIInvalidRequest< Error; end
-
+  # Campaign invalid
+  class AdTailyAPICampaignNotValid< Error; end
 
   class Response
     attr_accessor :data, :http_status, :http_message
@@ -14,12 +15,11 @@ class AdTailyAPI
     def initialize(response_str, code, message)
       raise AdTailyAPIUnknownResponse if response_str.nil?
       @http_status = code
-      @http_message = message
-      @data = JSON.parse(response_str) if self.success?
+      @http_message = message     
       begin
-        @errors = JSON.parse(response_str)['errors'] if self.failure?
+        @data = JSON.parse(response_str)
       rescue => e
-        @errors = nil
+        @data = nil
       end      
     end
         
@@ -44,7 +44,7 @@ class AdTailyAPI
     end
 
     def get_errors
-      @errors
+      @data['errors']
     end
   end
 

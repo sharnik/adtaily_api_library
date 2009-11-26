@@ -11,18 +11,18 @@ class TestAdtailyApi < Test::Unit::TestCase
       params = {"description" => "desc",
       "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
       "start_date" => Date.today, "stop_date" => 2.days.from_now,
-      "image" => File.open(File.dirname(__FILE__)+"/../tmp/moj_jez.jpg")
+      "image" => File.open(File.dirname(__FILE__)+"/../images/moj_jez.jpg")
       }
-      response = AdtailyAPI.buy_campaign(params)
-      assert_equal response.first['name'],'missing_params'
-      assert_equal response.first['params'],['target_url']     
+      assert_raise(AdTailyAPI::AdTailyAPICampaignNotValid){
+        AdtailyAPI.buy_campaign(params)
+      }    
     end
 
     should "buy campaign" do
       params = {"target_url" => "http://cos.pl","description" => "desc",
       "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
       "start_date" => Date.today, "stop_date" => 2.days.from_now,
-      "image" => File.open(File.dirname(__FILE__)+"/../tmp/moj_jez.jpg")
+      "image" => File.open(File.dirname(__FILE__)+"/../images/moj_jez.jpg")
       }
       both_campaign = AdtailyAPI.buy_campaign(params)
       campaign = AdtailyAPI.get_campaign(both_campaign['key'])
@@ -47,19 +47,19 @@ class TestAdtailyApi < Test::Unit::TestCase
       list = AdtailyAPI.get_websites
       assert list.length > 1
     end
-    
+
     should 'get campaign info for existing key' do
       c = AdtailyAPI.get_campaign('7xwOqvhz36QMxt1')
       assert c
       assert_equal '7xwOqvhz36QMxt1', c['key']
       assert c['ads'].size > 0
     end
-  
+
     should 'return nil for unauthorised request' do
       AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga-sringa'
       c = AdtailyAPI.get_campaign('7xwOqvhz36QMxt1')
       assert_nil c
-    end    
+    end
 
   end
 

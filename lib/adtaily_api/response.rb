@@ -19,7 +19,7 @@ class AdTailyAPI
     end
         
     def success?
-      ['200', '201'].include? http_status and http_message == 'OK'
+      ['200', '201'].include? http_status and ['OK','Created'].include? http_message
     end
     
     def failure?

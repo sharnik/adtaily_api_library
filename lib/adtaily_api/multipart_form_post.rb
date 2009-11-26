@@ -1,4 +1,5 @@
 require 'mime/types'
+require 'cgi'
 
 module Multipart
   VERSION = "1.0.0" unless const_defined?(:VERSION)

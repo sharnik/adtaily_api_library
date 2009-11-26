@@ -7,15 +7,28 @@ class TestAdtailyApi < Test::Unit::TestCase
       AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga'
     end
 
-#    should "buy campaign" do
-#      params = {"target_url" => "http://cos.pl","description" => "desc",
-#      "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
-#      "start_date" => Date.today, "stop_date" => 2.days.from_now,
-#      "image" => File.open("/tmp/creation_645.jpg")
-#      }
-#      campaign = AdtailyAPI.buy_campaign(params)
-#      raise campaign
-#    end
+    should "not buy campaign" do
+      params = {"description" => "desc",
+      "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
+      "start_date" => Date.today, "stop_date" => 2.days.from_now,
+      "image" => File.open(File.dirname(__FILE__)+"/../tmp/moj_jez.jpg")
+      }
+      campaign = AdtailyAPI.buy_campaign(params)
+      assert_nil campaign
+    end
+
+    should "buy campaign" do
+      params = {"target_url" => "http://cos.pl","description" => "desc",
+      "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
+      "start_date" => Date.today, "stop_date" => 2.days.from_now,
+      "image" => File.open(File.dirname(__FILE__)+"/../tmp/moj_jez.jpg")
+      }
+      both_campaign = AdtailyAPI.buy_campaign(params)
+      campaign = AdtailyAPI.get_campaign(both_campaign['key'])
+      assert campaign
+      assert_equal campaign['ads'].size,1
+      #assert_equal campaign['emissions'].first["widget"],"fb22p62yti"
+    end
 
     should "get widget info for existing key" do
       wi = AdtailyAPI.get_website('wu8edcee6h')

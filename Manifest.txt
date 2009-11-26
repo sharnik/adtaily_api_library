@@ -4,11 +4,10 @@ README.rdoc
 Rakefile
 lib/adtaily_api.rb
 lib/adtaily_api/response.rb
-lib//adtaily_api/multipart_form_post.rb
+lib/adtaily_api/multipart_form_post.rb
 script/console
 script/destroy
 script/generate
 test/test_adtaily_api.rb
 test/test_response.rb
 test/test_helper.rb
-tmp/moj_jez.jpg

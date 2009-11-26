@@ -45,7 +45,7 @@ class AdtailyAPI
     if response.success?
       response.get_campaign
     else
-      nil
+      response.get_errors
     end
   end
   

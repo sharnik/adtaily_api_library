@@ -16,6 +16,11 @@ class AdTailyAPI
       @http_status = code
       @http_message = message
       @data = JSON.parse(response_str) if self.success?
+      begin
+        @errors = JSON.parse(response_str)['errors'] if self.failure?
+      rescue => e
+        @errors = nil
+      end      
     end
         
     def success?
@@ -27,15 +32,19 @@ class AdTailyAPI
     end
 
     def get_widget_list
-      @data['widgets'] if self.success?
+      @data['widgets']
     end
     
     def get_widget
-      @data['widget'] if self.success?
+      @data['widget']
     end
 
     def get_campaign
-      @data['campaign'] if self.success?
+      @data['campaign']
+    end
+
+    def get_errors
+      @errors
     end
   end
 

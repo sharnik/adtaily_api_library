@@ -13,8 +13,9 @@ class TestAdtailyApi < Test::Unit::TestCase
       "start_date" => Date.today, "stop_date" => 2.days.from_now,
       "image" => File.open(File.dirname(__FILE__)+"/../tmp/moj_jez.jpg")
       }
-      campaign = AdtailyAPI.buy_campaign(params)
-      assert_nil campaign
+      response = AdtailyAPI.buy_campaign(params)
+      assert_equal response.first['name'],'missing_params'
+      assert_equal response.first['params'],['target_url']     
     end
 
     should "buy campaign" do
@@ -36,12 +37,12 @@ class TestAdtailyApi < Test::Unit::TestCase
       assert_equal 'wu8edcee6h', wi['key']
       assert_equal 'Radarek bloguje', wi['title']
     end
-    
+
     should 'return nil for non-existing key' do
       wi = AdtailyAPI.get_website('Bazinga-sringa')
       assert_nil wi
     end
-    
+
     should 'get all widgets list' do
       list = AdtailyAPI.get_websites
       assert list.length > 1

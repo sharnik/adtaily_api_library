@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestAdTailyAPI < Test::Unit::TestCase
   
-   context "AdTaily API both campaign response" do
+  context "AdTaily API bought campaign response" do
     setup do
       response_str = <<AMEN
         {

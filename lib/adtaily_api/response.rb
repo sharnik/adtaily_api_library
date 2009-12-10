@@ -15,7 +15,7 @@ class AdTailyAPI
     def initialize(response_str, code, message)
       raise AdTailyAPIUnknownResponse if response_str.nil?
       @http_status = code
-      @http_message = message     
+      @http_message = message
       begin
         @data = JSON.parse(response_str)
       rescue => e
@@ -24,7 +24,7 @@ class AdTailyAPI
     end
         
     def success?
-      ['200', '201'].include? http_status and ['OK','Created'].include? http_message
+      ['200', '201'].include? http_status
     end
     
     def failure?

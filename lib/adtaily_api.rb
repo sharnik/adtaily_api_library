@@ -7,10 +7,13 @@ require 'net/http'
 
 class AdtailyAPI
   VERSION = '0.0.1'
-  ADTAILY_API_URL = 'http://localhost:3000/xapi/'
+  @@config = {
+    :api_url => 'http://localhost:3000/xapi/',
+    :api_token => nil
+  }
   
   def self.get_websites
-    res = make_api_authorized_request(ADTAILY_API_URL + "widgets")
+    res = make_api_authorized_request(api_url + "widgets")
     response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_widget_list
@@ -20,7 +23,7 @@ class AdtailyAPI
   end
   
   def self.get_website(key)
-    res = make_api_authorized_request(ADTAILY_API_URL + "widgets/#{key}")
+    res = make_api_authorized_request(api_url + "widgets/#{key}")
     response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_widget
@@ -30,7 +33,7 @@ class AdtailyAPI
   end
   
   def self.get_campaign(key)
-    res = make_api_authorized_request(ADTAILY_API_URL + "campaigns/#{key}")
+    res = make_api_authorized_request(api_url + "campaigns/#{key}")
     response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_campaign
@@ -40,7 +43,7 @@ class AdtailyAPI
   end
 
   def self.buy_campaign(options)
-    res = make_api_authorized_post_request(ADTAILY_API_URL + "campaigns/",options)
+    res = make_api_authorized_post_request(api_url + "campaigns/",options)
     response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_campaign
@@ -49,11 +52,27 @@ class AdtailyAPI
     end
   end
   
+  def self.api_url
+    @@config[:api_url]
+  end
+
+  def self.api_url=(_url)
+    @@config[:api_url] = _url
+  end  
+  
+  def self.api_token
+    @@config[:api_token]
+  end
+
+  def self.api_token=(_token)
+    @@config[:api_token] = _token
+  end
+  
   protected
     def self.make_api_authorized_post_request(url,params)
       url = URI.parse(url)
       data, headers = Multipart::Post.prepare_query(params)
-      headers["X_API_TOKEN"] = ADTAILY_API_TOKEN
+      headers["X_API_TOKEN"] = api_token
       http = Net::HTTP.new(url.host, url.port)
       res = http.start {|con| con.post(url.path, data, headers) }            
     end
@@ -62,7 +81,7 @@ class AdtailyAPI
       url = URI.parse(url)
 
       req = Net::HTTP::Get.new(url.path)
-      req.add_field("X_API_TOKEN", ADTAILY_API_TOKEN)
+      req.add_field("X_API_TOKEN", api_token)
 
       res = Net::HTTP.new(url.host, url.port).start do |http|
         http.request(req)

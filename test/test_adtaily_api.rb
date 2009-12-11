@@ -6,12 +6,12 @@ class TestAdtailyApi < Test::Unit::TestCase
 
   context "AdTailyAPI class" do
     setup do
-      AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga'
+      AdtailyAPI.api_token = 'bazinga'
     end
 
     context 'getting widget info' do
       setup do
-        stub_request(:get, "#{AdtailyAPI::ADTAILY_API_URL}widgets/foobarbaz").with(
+        stub_request(:get, "#{AdtailyAPI.api_url}widgets/foobarbaz").with(
           :headers => { 'X_API_TOKEN' => 'bazinga' }
         ).to_return(
           :body => '{
@@ -26,7 +26,7 @@ class TestAdtailyApi < Test::Unit::TestCase
           }',
           :status => '200'
         )
-        stub_request(:get, "#{AdtailyAPI::ADTAILY_API_URL}widgets/pinga-pinga").with(
+        stub_request(:get, "#{AdtailyAPI.api_url}widgets/pinga-pinga").with(
           :headers => { 'X_API_TOKEN' => 'bazinga' }
         ).to_return(
           :body => '',
@@ -49,7 +49,7 @@ class TestAdtailyApi < Test::Unit::TestCase
     
     context 'getting a widget list' do      
       setup do
-        stub_request(:get, "#{AdtailyAPI::ADTAILY_API_URL}widgets").with(
+        stub_request(:get, "#{AdtailyAPI.api_url}widgets").with(
           :headers => { 'X_API_TOKEN' => 'bazinga' }
         ).to_return(
           :body => '{
@@ -86,7 +86,7 @@ class TestAdtailyApi < Test::Unit::TestCase
         
     context "buying a campaign" do
       setup do
-        stub_request(:post, "#{AdtailyAPI::ADTAILY_API_URL}campaigns/").with(
+        stub_request(:post, "#{AdtailyAPI.api_url}campaigns/").with(
           :headers => { 'X_API_TOKEN' => 'bazinga'}
         ).to_return(
           :body => '{
@@ -100,7 +100,7 @@ class TestAdtailyApi < Test::Unit::TestCase
           }',
           :status => '201'
         )
-        stub_request(:get, "#{AdtailyAPI::ADTAILY_API_URL}campaigns/NbaINk2mDj9XUbJ").with(
+        stub_request(:get, "#{AdtailyAPI.api_url}campaigns/NbaINk2mDj9XUbJ").with(
           :headers => { 'X_API_TOKEN' => 'bazinga'}
         ).to_return(
           :body => '{
@@ -133,13 +133,13 @@ class TestAdtailyApi < Test::Unit::TestCase
           }',
           :status => '201'
         )
-        stub_request(:get, "#{AdtailyAPI::ADTAILY_API_URL}campaigns/7xwOqvhz36QMxt1").with(
+        stub_request(:get, "#{AdtailyAPI.api_url}campaigns/7xwOqvhz36QMxt1").with(
           :headers => { 'X_API_TOKEN' => 'bazinga-sringa'}
         ).to_return(
           :body => '',
           :status => '404'
         )
-        stub_request(:get, "#{AdtailyAPI::ADTAILY_API_URL}campaigns/7xwOqvhz36QMxt1").with(
+        stub_request(:get, "#{AdtailyAPI.api_url}campaigns/7xwOqvhz36QMxt1").with(
           :headers => { 'X_API_TOKEN' => 'bazinga'}
         ).to_return(
           :body => '{
@@ -188,24 +188,24 @@ class TestAdtailyApi < Test::Unit::TestCase
         assert_equal 1, campaign['ads'].size
         assert_equal 'fb22p62yti', campaign['emissions'].first['widget']
       end
-      
-      should 'return nil for unauthorised request' do
-        AdtailyAPI::ADTAILY_API_TOKEN = 'bazinga-sringa'
-        c = AdtailyAPI.get_campaign('7xwOqvhz36QMxt1')
-        assert_nil c
-      end
-    
+          
       should 'get campaign info for existing key' do
         c = AdtailyAPI.get_campaign('7xwOqvhz36QMxt1')
         assert c
         assert_equal '7xwOqvhz36QMxt1', c['key']
         assert c['ads'].size > 0
       end
+      
+      should 'return nil for unauthorised request' do
+        AdtailyAPI.api_token = 'bazinga-sringa'
+        c = AdtailyAPI.get_campaign('7xwOqvhz36QMxt1')
+        assert_nil c
+      end
     end
     
     context "when trying to buy an inappropriate campaign" do
       setup do
-        stub_request(:post, "#{AdtailyAPI::ADTAILY_API_URL}campaigns/").with(
+        stub_request(:post, "#{AdtailyAPI.api_url}campaigns/").with(
           :headers => { 'X_API_TOKEN' => 'bazinga'}
         ).to_return(
           :body => '{

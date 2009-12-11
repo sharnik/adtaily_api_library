@@ -177,7 +177,7 @@ class TestAdtailyApi < Test::Unit::TestCase
       should "buy campaign" do
         params = {"target_url" => "http://cos.pl","description" => "desc",
           "widgets" => ["fb22p62yti"], "payment_method" => "paypal", 'profit' => '0%',
-          "start_date" => Date.today, "stop_date" => 2.days.from_now,
+          "start_date" => Date.today, "stop_date" => (Date.today + 2),
           "image" => File.open(File.dirname(__FILE__)+"/fixtures/images/moj_jez.jpg")
         }
         bought_campaign = AdtailyAPI.buy_campaign(params)
@@ -223,7 +223,7 @@ class TestAdtailyApi < Test::Unit::TestCase
       should "not buy campaign" do
         params = { "description" => "desc",
           "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
-          "start_date" => Date.today, "stop_date" => 2.days.from_now,
+          "start_date" => Date.today, "stop_date" => (Date.today + 2),
           "image" => File.open(File.dirname(__FILE__)+"/fixtures/images/moj_jez.jpg")
         }
         assert_raise(AdTailyAPI::AdTailyAPICampaignNotValid){

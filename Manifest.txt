@@ -11,3 +11,4 @@ script/generate
 test/test_adtaily_api.rb
 test/test_response.rb
 test/test_helper.rb
+test/fixtures/images/moj_jez.jpg

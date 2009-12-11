@@ -178,7 +178,7 @@ class TestAdtailyApi < Test::Unit::TestCase
         params = {"target_url" => "http://cos.pl","description" => "desc",
           "widgets" => ["fb22p62yti"], "payment_method" => "paypal", 'profit' => '0%',
           "start_date" => Date.today, "stop_date" => 2.days.from_now,
-          "image" => File.open(File.dirname(__FILE__)+"/../images/moj_jez.jpg")
+          "image" => File.open(File.dirname(__FILE__)+"/fixtures/images/moj_jez.jpg")
         }
         bought_campaign = AdtailyAPI.buy_campaign(params)
         assert bought_campaign['payment_form']
@@ -224,7 +224,7 @@ class TestAdtailyApi < Test::Unit::TestCase
         params = { "description" => "desc",
           "widgets" => ["fb22p62yti"], "payment_method" => "paypal",
           "start_date" => Date.today, "stop_date" => 2.days.from_now,
-          "image" => File.open(File.dirname(__FILE__)+"/../images/moj_jez.jpg")
+          "image" => File.open(File.dirname(__FILE__)+"/fixtures/images/moj_jez.jpg")
         }
         assert_raise(AdTailyAPI::AdTailyAPICampaignNotValid){
           AdtailyAPI.buy_campaign(params)

@@ -1,19 +1,15 @@
+$:.unshift(File.dirname(__FILE__)) unless
+  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
+
+require 'errors'
 require 'json'
 
 class AdTailyAPI
-  class Error < StandardError; end
-  # Unknown server response
-  class AdTailyAPIUnknownResponse < Error; end
-  # Invalid request server response
-  class AdTailyAPIInvalidRequest< Error; end
-  # Campaign invalid
-  class AdTailyAPICampaignNotValid< Error; end
-
   class Response
     attr_accessor :data, :http_status, :http_message
     
     def initialize(response_str, code, message)
-      raise AdTailyAPIUnknownResponse if response_str.nil?
+      raise UnknownResponse if response_str.nil?
       @http_status = code
       @http_message = message
       begin

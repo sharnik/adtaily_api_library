@@ -226,9 +226,15 @@ class TestAdtailyApi < Test::Unit::TestCase
           "start_date" => Date.today, "stop_date" => (Date.today + 2),
           "image" => File.open(File.dirname(__FILE__)+"/fixtures/images/moj_jez.jpg")
         }
-        assert_raise(AdTailyAPI::AdTailyAPICampaignNotValid){
+        assert_raise(AdTailyAPI::CampaignNotValid){
           AdtailyAPI.buy_campaign(params)
         }
+        begin
+          AdtailyAPI.buy_campaign(params)
+        rescue AdTailyAPI::CampaignNotValid => e
+          assert_equal [{"name"=>"missing_params", "params"=>["target_url"]}], e.message
+        end
+        
       end
     end
     

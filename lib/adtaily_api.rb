@@ -47,8 +47,8 @@ class AdtailyAPI
     response = AdTailyAPI::Response.new(res.body, res.code, res.message)
     if response.success?
       response.get_campaign
-    else      
-      raise AdTailyAPI::AdTailyAPICampaignNotValid,"Can't buy campaign. Errors: #{response.get_errors.inspect}"
+    else
+      raise AdTailyAPI::CampaignNotValid, response.get_errors
     end
   end
   

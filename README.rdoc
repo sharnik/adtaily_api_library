@@ -1,32 +1,52 @@
-= adtaily_api
+= AdTaily API
 
-* http://github.com/#{github_username}/#{project_name}
+* http://github.com/adtaily/adtaily_api_library
+* http://adtaily.com
 
-== DESCRIPTION:
-
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+Semi-official library to implement AdTaily's API. 
 
-== REQUIREMENTS:
 
-* FIX (list of requirements)
+== EXAMPLE OF USE:
+
+# First you need to specify your AdTaily API token:
+AdtailyAPI.api_token = 'bazinga'
+
+# Getting an array of all available websites:
+AdtailyAPI.get_websites
+
+# Getting information about a specific website: 
+AdtailyAPI.get_website('website_unique_key')
+
+# Buying a campaign:
+params = {
+  "target_url" => "http://cos.pl",
+  "description" => "desc",
+  "widgets" => ["fb22p62yti"], 
+  "payment_method" => "paypal", 
+  "profit" => '0',
+  "start_date" => Date.today, 
+  "stop_date" => (Date.today + 2),
+  "image" => File.open("/tmp/images/moj_jez.jpg")
+}
+brand_new_campaign = AdtailyAPI.buy_campaign(params)
+
+# Getting campaign information:
+AdtailyAPI.get_campaign('campaign_unique_key')
+
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+sudo gem install adtaily_api --source http://gemcutter.org
+
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009-2010 AdTaily sp. z o.o
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

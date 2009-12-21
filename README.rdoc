@@ -1,7 +1,5 @@
 = AdTaily API
 
-Important websites:
-
 * http://github.com/adtaily/adtaily_api_library
 * http://adtaily.com
 

@@ -4,6 +4,7 @@ README.rdoc
 Rakefile
 lib/adtaily_api.rb
 lib/adtaily_api/response.rb
+lib/adtaily_api/errors.rb
 lib/adtaily_api/multipart_form_post.rb
 script/console
 script/destroy

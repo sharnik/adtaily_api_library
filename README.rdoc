@@ -39,7 +39,8 @@ Getting campaign information:
 
 == INSTALL:
 
-  sudo gem install adtaily_api --source http://gemcutter.org
+  git clone git://github.com/adtaily/adtaily_api_library.git
+  rake install_gem
 
 
 == LICENSE:
